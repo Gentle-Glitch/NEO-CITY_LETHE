@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SYSTEM ARCHIVE: NEO-CITY LETHE</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Noto+Sans+KR:wght@300;400;700&family=Orbitron:wght@400;700&display=swap');
+        /* 폰트: 가독성이 높고 날카로운 프리텐다드 스타일과 기술적인 Orbitron 조합 */
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;700&family=Orbitron:wght@400;700&family=JetBrains+Mono&display=swap');
 
         :root {
             --bg-dark: #020203;
@@ -14,22 +15,23 @@
             --m-chip-gold: #ffd700;
             --warning-red: #ff003c;
             --text-gray: #94a3b8;
+            --dealer-green: #00ff95;
             --glass: rgba(255, 255, 255, 0.03);
         }
 
         body {
             background-color: var(--bg-dark);
             color: #e2e8f0;
-            font-family: 'Noto Sans KR', sans-serif;
+            font-family: 'Pretendard', sans-serif; /* 한글 폰트 변경 */
             margin: 0;
             line-height: 1.7;
             word-break: keep-all;
         }
 
-        .serif { font-family: 'Nanum Myeongjo', serif; }
         .orbitron { font-family: 'Orbitron', sans-serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
 
-        /* 배경 글리치 효과 */
+        /* 배경 노이즈 효과 */
         body::before {
             content: "";
             position: fixed;
@@ -63,14 +65,7 @@
             margin: 0;
         }
 
-        .concept-card {
-            background: var(--glass);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            margin-bottom: 60px;
-            border-radius: 2px;
-            position: relative;
-        }
+        section { margin-bottom: 80px; }
 
         h2 {
             font-family: 'Orbitron', sans-serif;
@@ -79,10 +74,16 @@
             margin-top: 0;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
         }
 
-        /* 이미지 박스 */
+        h2::after {
+            content: "";
+            flex-grow: 1;
+            height: 1px;
+            background: linear-gradient(to right, var(--neon-blue), transparent);
+        }
+
         .img-box {
             width: 100%;
             height: 300px;
@@ -100,52 +101,61 @@
             transition: 0.5s;
         }
 
-        .img-box img:hover { opacity: 1; transform: scale(1.05); }
-
-        /* 그리드 레이아웃 */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
-            margin-bottom: 60px;
         }
 
         .card {
             background: var(--glass);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 0;
+            padding: 25px;
             transition: 0.3s;
         }
 
         .card:hover { border-color: var(--neon-purple); }
 
-        .card-content { padding: 20px; }
-
         .card-title {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: 1.2rem;
+            font-size: 1.15rem;
+            font-weight: 700;
             color: #fff;
             margin-bottom: 10px;
             display: block;
         }
 
-        .desc { font-size: 0.9rem; color: var(--text-gray); }
-
-        /* 다이브 단계 강조 */
-        .dive-step {
-            border-left: 3px solid var(--neon-purple);
-            padding-left: 20px;
-            margin: 20px 0;
+        /* 다이브 단계 스타일 */
+        .step-box {
+            background: rgba(188, 19, 254, 0.05);
+            border: 1px solid var(--neon-purple);
+            padding: 30px;
+            margin-top: 20px;
         }
 
+        .dive-step { margin-bottom: 20px; }
         .step-label {
             color: var(--neon-purple);
-            font-weight: bold;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.8rem;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: block;
         }
 
-        .highlight { color: var(--m-chip-gold); }
+        /* 딜러 섹션 스타일 */
+        .dealer-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .dealer-card {
+            flex: 1;
+            padding: 20px;
+            border-left: 4px solid var(--dealer-green);
+            background: rgba(0, 255, 149, 0.02);
+        }
+
+        .highlight { color: var(--m-chip-gold); font-weight: 700; }
+        .warning { color: var(--warning-red); font-size: 0.85rem; font-family: 'JetBrains Mono'; }
 
         footer {
             text-align: center;
@@ -161,118 +171,96 @@
 
 <div class="container">
     <header>
-        <p class="orbitron" style="font-size: 0.7rem; color: var(--neon-blue);">ARCHIVE ACCESS GRANTED // DATA RETRIEVED</p>
+        <p class="orbitron" style="font-size: 0.7rem; color: var(--neon-blue);">ENCRYPTED ARCHive // ACCESS GRANTED</p>
         <h1>LETHE</h1>
-        <p class="serif" style="font-size: 1.1rem; color: var(--text-gray);">인간의 기억이 데이터가 되는 도시, 네오-시티 레테</p>
+        <p style="font-size: 1rem; color: var(--text-gray); letter-spacing: 2px;">기억 매매 도시: 네오-시티 레테</p>
     </header>
 
-    <!-- 메인 컨셉 -->
-    <section class="concept-card">
-        <h2>01. THE M-CHIP SYSTEM</h2>
+    <!-- 01. M-칩 -->
+    <section>
+        <h2>01. THE M-CHIP</h2>
         <div class="img-box">
-            <img src="https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=1000&auto=format&fit=crop" alt="Memory Chip Data">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000" alt="M-Chip Data">
         </div>
-        <p class="serif">모든 기억은 물리적 매체인 <span class="highlight">M-칩</span>에 담겨 거래됩니다. 이 도시는 행복을 팔아 끼니를 때우고, 자극을 사서 일상을 채우는 거대한 기억 거래소입니다. 추출된 기억은 뇌에서 영원히 사라지며, 칩은 파괴되지 않습니다.</p>
-        
-        <div class="dive-step">
-            <span class="step-label">PHASE 01: OBSERVING</span>
-            <p class="desc">관조. 기억의 표면을 제3자의 시점에서 정보로만 습득합니다.</p>
-        </div>
-        <div class="dive-step">
-            <span class="step-label">PHASE 02: RESONANCE</span>
-            <p class="desc">공명. 주체의 감정과 촉각, 온도까지 공유하며 기억을 수정하거나 추출할 수 있습니다.</p>
+        <p>인간의 자아와 영혼을 수치화하여 담아낸 물리적 매체. <span class="highlight">파괴 불가능</span>한 성질을 가지며, 추출이 완료된 기억은 원본 소유자의 뇌에서 영구히 소멸합니다. 칩을 소유하는 것이 곧 그 기억의 주인이 됨을 의미합니다.</p>
+    </section>
+
+    <!-- 02. 다이브 (Dive) -->
+    <section>
+        <h2>02. DIVE SYSTEM</h2>
+        <p>타인의 뉴럴 링크와 자신의 뇌파를 동기화하여 M-칩 내부로 진입하는 일련의 과정입니다.</p>
+        <div class="step-box">
+            <div class="dive-step">
+                <span class="step-label">PHASE 01: OBSERVING (관조)</span>
+                <p>기억의 표면을 영화처럼 제3자의 시점에서 관찰합니다. 단순 정보 습득용이며 조작이 불가능한 안전 단계입니다.</p>
+            </div>
+            <div class="dive-step">
+                <span class="step-label">PHASE 02: RESONANCE (공명)</span>
+                <p>기억 주체와 감각 및 촉각을 완벽히 공유합니다. <span class="highlight">기억의 수정, 조립, 강제 삽입</span>이 가능해지는 단계이나, 자아 오염의 위험이 매우 높습니다.</p>
+            </div>
+            <p class="warning">!! WARNING: RESONANCE MAY CAUSE PERMANENT EGO COLLAPSE !!</p>
         </div>
     </section>
 
-    <!-- 하드웨어 -->
+    <!-- 03. 딜러 (Dealer) -->
     <section>
-        <h2>02. HARDWARE ARCHIVE</h2>
+        <h2>03. MEMORY DEALERS</h2>
+        <p>다이브를 통해 기억을 유통, 수정, 가공하는 전문가들입니다.</p>
+        <div class="dealer-container">
+            <div class="dealer-card">
+                <span class="card-title">거래소 딜러 (Licensed)</span>
+                <p class="desc">코어와 므네모시네의 승인을 받은 합법 딜러. 하이퍼 링크를 사용하며, 표준 규격 내에서만 기억을 유통합니다. 안전하지만 기업의 감시를 받습니다.</p>
+            </div>
+            <div class="dealer-card">
+                <span class="card-title">불법 딜러 (Street Dealer)</span>
+                <p class="desc">구역 88에서 활동하는 무허가 딜러. 딥링크를 활용해 기억의 금지된 부분을 삭제하거나 여러 인생을 짜깁기해 가짜 자아를 만들어 판매합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 04. 하드웨어 -->
+    <section>
+        <h2>04. HARDWARE ARCHIVE</h2>
         <div class="grid">
             <div class="card">
                 <div class="img-box" style="height: 180px;">
-                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000" alt="Deep Link">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000" alt="Deep Link">
                 </div>
-                <div class="card-content">
-                    <span class="card-title">딥링크 (Deep-Link)</span>
-                    <p class="desc">보안을 강제로 파쇄하는 구식 동조 장치. 거친 뇌파 동조로 인해 딜러의 신체에 큰 무리를 줍니다.</p>
-                </div>
+                <span class="card-title">딥링크 (Deep-Link)</span>
+                <p class="desc" style="font-size: 0.9rem;">수십 개의 전선이 엉킨 구식 헬멧 장치. 뇌에 심한 과부하를 주지만 기업 보안을 무식하게 뚫어내는 데 특화되어 있습니다.</p>
             </div>
             <div class="card">
                 <div class="img-box" style="height: 180px;">
                     <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1000" alt="Hyper Link">
                 </div>
-                <div class="card-content">
-                    <span class="card-title">하이퍼 링크 (Hyper-Link)</span>
-                    <p class="desc">코어 엘리트들의 표준 장비. 안전하고 높은 싱크로율을 자랑하지만 기업 보안 암호에 취약합니다.</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="img-box" style="height: 180px;">
-                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000" alt="Sensory Pool">
-                </div>
-                <div class="card-content">
-                    <span class="card-title">센서리 풀 (Sensory Pool)</span>
-                    <p class="desc">액체형 튜브 장치. M-칩을 넣으면 기억이 신경망처럼 퍼지며 군중의 뇌파와 10% 동기화됩니다.</p>
-                </div>
+                <span class="card-title">하이퍼 링크 (Hyper-Link)</span>
+                <p class="desc" style="font-size: 0.9rem;">목 뒤에 부착하는 최첨단 패치형 동조기. 싱크로율이 정밀하고 안전하나, 비표준 암호화된 칩 앞에서는 무용지물입니다.</p>
             </div>
         </div>
     </section>
 
-    <!-- 주요 장소 -->
+    <!-- 05. 주요 구역 -->
     <section>
-        <h2>03. KEY SECTORS</h2>
+        <h2>05. KEY LOCATIONS</h2>
         <div class="grid">
             <div class="card">
-                <div class="img-box" style="height: 200px;">
-                    <img src="https://images.unsplash.com/photo-1514924013411-cbf25faa35bb?q=80&w=1000" alt="Sector 88">
-                </div>
-                <div class="card-content">
-                    <span class="card-title">구역 88</span>
-                    <p class="desc">폐기물 처리장과 뒷골목 딜러들의 거점. 네온사인조차 닿지 않는 레테의 가장 깊은 곳입니다.</p>
-                </div>
+                <span class="card-title">구역 88</span>
+                <p class="desc" style="font-size: 0.9rem;">네온조차 닿지 않는 레테의 밑바닥. 불법 개조와 자아를 잃은 노숙자들이 즐비한 기억의 폐기장입니다.</p>
             </div>
             <div class="card">
-                <div class="img-box" style="height: 200px;">
-                    <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=1000" alt="The Core">
-                </div>
-                <div class="card-content">
-                    <span class="card-title">코어 (The Core)</span>
-                    <p class="desc">에테르 가든의 낙원과 데이터 경매장의 탐욕이 공존하는 마천루. 도시의 경제가 이곳에서 결정됩니다.</p>
-                </div>
+                <span class="card-title">코어 (The Core)</span>
+                <p class="desc" style="font-size: 0.9rem;">상층부의 낙원 '에테르 가든'과 타인의 인생을 실시간 경매하는 중층부가 공존하는 탐욕의 마천루입니다.</p>
             </div>
             <div class="card">
-                <div class="img-box" style="height: 200px;">
-                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000" alt="Mnemosyne">
-                </div>
-                <div class="card-content">
-                    <span class="card-title">므네모시네</span>
-                    <p class="desc">기억 거래를 독점하는 초거대 기업. 모든 국가 기밀과 비리를 블랙 서버에 영원히 봉인합니다.</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="img-box" style="height: 200px;">
-                    <img src="https://images.unsplash.com/photo-1516339901600-2e1a62dc0c45?q=80&w=1000" alt="Memory Laundry">
-                </div>
-                <div class="card-content">
-                    <span class="card-title">기억 세탁소</span>
-                    <p class="desc">고위층의 과거를 미화하거나 삭제하는 코어의 비밀 센터. 딥링크만이 그 흔적을 추적할 수 있습니다.</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="img-box" style="height: 200px;">
-                    <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=1000" alt="Synapse Bar">
-                </div>
-                <div class="card-content">
-                    <span class="card-title">시냅스 바 (Synapse Bar)</span>
-                    <p class="desc">기억력 극대화 약물이 섞인 술을 파는 성역. 하지만 주인은 고객의 기억을 도청하는 스파이입니다.</p>
-                </div>
+                <span class="card-title">시냅스 바 (Synapse Bar)</span>
+                <p class="desc" style="font-size: 0.9rem;">기억력 증폭 술을 파는 성역 같지만, 사실 고객의 모든 발언을 도청해 블랙 마켓으로 넘기는 정보 거점입니다.</p>
             </div>
         </div>
     </section>
 
     <footer>
-        <p class="orbitron">SYSTEM_ID: LETHE_SERVER_088 // NO MEMORY IS SAFE.</p>
-        &copy; 2026 NEO-CITY LETHE.
+        <p class="orbitron">SYSTEM_ID: LETHE_SERVER_088 // MEMORY_IS_POWER</p>
+        &copy; 2026 NEO-CITY LETHE. ALL RIGHTS RESERVED.
     </footer>
 </div>
 
