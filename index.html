@@ -3,78 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SYSTEM ARCHIVE: NEO-CITY LETHE</title>
+    <title>TERMINAL: NEO-CITY LETHE</title>
     <style>
-        /* 폰트: 가독성이 높고 날카로운 프리텐다드 스타일과 기술적인 Orbitron 조합 */
         @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;700&family=Orbitron:wght@400;700&family=JetBrains+Mono&display=swap');
 
         :root {
-            --bg-dark: #020203;
+            --bg-dark: #050507;
             --neon-blue: #00f3ff;
             --neon-purple: #bc13fe;
             --m-chip-gold: #ffd700;
             --warning-red: #ff003c;
-            --text-gray: #94a3b8;
             --dealer-green: #00ff95;
+            --text-gray: #94a3b8;
             --glass: rgba(255, 255, 255, 0.03);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        * { box-sizing: border-box; }
 
         body {
             background-color: var(--bg-dark);
             color: #e2e8f0;
-            font-family: 'Pretendard', sans-serif; /* 한글 폰트 변경 */
+            font-family: 'Pretendard', sans-serif;
             margin: 0;
             line-height: 1.7;
             word-break: keep-all;
+            overflow-x: hidden;
         }
 
-        .orbitron { font-family: 'Orbitron', sans-serif; }
-        .mono { font-family: 'JetBrains Mono', monospace; }
-
-        /* 배경 노이즈 효과 */
+        /* 배경 글리치 및 스캔라인 */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
-            background-size: 100% 3px, 3px 100%;
-            z-index: 999;
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            background-size: 100% 4px, 4px 100%;
+            z-index: 100;
             pointer-events: none;
         }
 
         .container {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 60px 20px;
+            padding: 80px 20px;
+            position: relative;
+            z-index: 1;
         }
 
+        /* 헤더 디자인 */
         header {
             text-align: center;
-            border-bottom: 1px solid var(--neon-blue);
-            padding-bottom: 50px;
-            margin-bottom: 80px;
+            margin-bottom: 100px;
+            border-left: 2px solid var(--neon-blue);
+            border-right: 2px solid var(--neon-blue);
+            padding: 40px 0;
+            background: linear-gradient(90deg, rgba(0,243,255,0.05), transparent, rgba(0,243,255,0.05));
+        }
+
+        .system-status {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--neon-blue);
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
         }
 
         h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
-            letter-spacing: 12px;
+            font-size: clamp(2.5rem, 10vw, 4.5rem);
+            letter-spacing: 15px;
             color: #fff;
-            text-shadow: 0 0 15px var(--neon-blue);
-            margin: 0;
+            text-shadow: 0 0 20px var(--neon-blue), 0 0 40px rgba(0, 243, 255, 0.3);
+            margin: 10px 0;
         }
 
-        section { margin-bottom: 80px; }
+        /* 섹션 공통 */
+        section { margin-bottom: 100px; }
 
         h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: var(--neon-blue);
-            margin-top: 0;
+            margin-bottom: 40px;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
+        }
+
+        h2::before {
+            content: ">>";
+            font-size: 1rem;
+            color: var(--neon-purple);
         }
 
         h2::after {
@@ -84,86 +105,127 @@
             background: linear-gradient(to right, var(--neon-blue), transparent);
         }
 
-        .img-box {
-            width: 100%;
-            height: 300px;
-            background: #111;
-            margin: 20px 0;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            overflow: hidden;
-        }
-
-        .img-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.7;
-            transition: 0.5s;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
+        /* 정보 카드 스타일 */
+        .info-card {
             background: var(--glass);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 25px;
-            transition: 0.3s;
-        }
-
-        .card:hover { border-color: var(--neon-purple); }
-
-        .card-title {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        /* 다이브 단계 스타일 */
-        .step-box {
-            background: rgba(188, 19, 254, 0.05);
-            border: 1px solid var(--neon-purple);
-            padding: 30px;
-            margin-top: 20px;
-        }
-
-        .dive-step { margin-bottom: 20px; }
-        .step-label {
-            color: var(--neon-purple);
-            font-family: 'Orbitron', sans-serif;
-            font-weight: bold;
-            font-size: 0.9rem;
-            display: block;
-        }
-
-        /* 딜러 섹션 스타일 */
-        .dealer-container {
-            display: flex;
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .dealer-card {
-            flex: 1;
-            padding: 20px;
-            border-left: 4px solid var(--dealer-green);
-            background: rgba(0, 255, 149, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            position: relative;
+            margin-bottom: 30px;
         }
 
         .highlight { color: var(--m-chip-gold); font-weight: 700; }
-        .warning { color: var(--warning-red); font-size: 0.85rem; font-family: 'JetBrains Mono'; }
+        .purple { color: var(--neon-purple); font-weight: 700; }
+
+        /* 다이브 단계 */
+        .dive-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .step-box {
+            border: 1px solid var(--neon-purple);
+            padding: 25px;
+            background: rgba(188, 19, 254, 0.03);
+        }
+
+        /* 딜러 유형 */
+        .dealer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .dealer-card {
+            border-left: 4px solid var(--dealer-green);
+            background: rgba(0, 255, 149, 0.05);
+            padding: 25px;
+        }
+
+        /* 하드웨어 그리드 */
+        .hw-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .hw-card {
+            background: #0a0a0c;
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 30px;
+            transition: var(--transition);
+        }
+
+        .hw-card:hover { border-color: var(--neon-blue); transform: translateY(-5px); }
+
+        .card-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            color: var(--neon-blue);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* 아코디언 지도 구역 */
+        .accordion {
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+
+        .acc-header {
+            background: rgba(255,255,255,0.02);
+            padding: 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            transition: var(--transition);
+        }
+
+        .acc-header:hover { background: rgba(0, 243, 255, 0.05); color: var(--neon-blue); }
+
+        .acc-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease-out;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .accordion.active .acc-content { max-height: 1500px; transition: max-height 1s ease-in; }
+        .accordion.active .acc-header { border-bottom: 1px solid var(--neon-blue); color: var(--neon-blue); }
+
+        .sub-item {
+            padding: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .sub-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .sub-desc { color: var(--text-gray); font-size: 0.95rem; }
 
         footer {
             text-align: center;
-            padding-top: 50px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: #444;
-            font-size: 0.75rem;
+            padding: 100px 0 50px;
+            font-family: 'JetBrains Mono', monospace;
+            color: #333;
+            font-size: 0.8rem;
             letter-spacing: 2px;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .dive-grid, .dealer-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -171,49 +233,48 @@
 
 <div class="container">
     <header>
-        <p class="orbitron" style="font-size: 0.7rem; color: var(--neon-blue);">ENCRYPTED ARCHive // ACCESS GRANTED</p>
+        <div class="system-status">System: Online // Data: Encrypted // Year: 2026</div>
         <h1>LETHE</h1>
-        <p style="font-size: 1rem; color: var(--text-gray); letter-spacing: 2px;">기억 매매 도시: 네오-시티 레테</p>
+        <p style="color: var(--text-gray); letter-spacing: 5px;">NEO-CITY INFORMATION 아카이브</p>
     </header>
 
     <!-- 01. M-칩 -->
     <section>
-        <h2>01. THE M-CHIP</h2>
-        <div class="img-box">
-            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000" alt="M-Chip Data">
+        <h2>01. MEMORY STORAGE</h2>
+        <div class="info-card">
+            <p style="font-size: 1.1rem;">
+                이 도시에서 기억은 더 이상 추상이 아닙니다. <span class="highlight">M-칩(Memory Chip)</span>은 인간의 모든 감각, 감정, 경험을 데이터화하여 보관하는 물리적 객체입니다. 
+                칩에 담긴 기억은 소유권을 가진 자만이 열람할 수 있으며, 일단 추출된 기억은 원본 소유자의 뇌에서 <span class="purple">영구히 삭제</span>됩니다.
+            </p>
         </div>
-        <p>인간의 자아와 영혼을 수치화하여 담아낸 물리적 매체. <span class="highlight">파괴 불가능</span>한 성질을 가지며, 추출이 완료된 기억은 원본 소유자의 뇌에서 영구히 소멸합니다. 칩을 소유하는 것이 곧 그 기억의 주인이 됨을 의미합니다.</p>
     </section>
 
-    <!-- 02. 다이브 (Dive) -->
+    <!-- 02. 다이브 시스템 -->
     <section>
-        <h2>02. DIVE SYSTEM</h2>
-        <p>타인의 뉴럴 링크와 자신의 뇌파를 동기화하여 M-칩 내부로 진입하는 일련의 과정입니다.</p>
-        <div class="step-box">
-            <div class="dive-step">
-                <span class="step-label">PHASE 01: OBSERVING (관조)</span>
-                <p>기억의 표면을 영화처럼 제3자의 시점에서 관찰합니다. 단순 정보 습득용이며 조작이 불가능한 안전 단계입니다.</p>
+        <h2>02. DIVE INTERFACE</h2>
+        <div class="dive-grid">
+            <div class="step-box">
+                <span class="purple" style="font-family: 'Orbitron';">PHASE 01: OBSERVING</span>
+                <p class="sub-desc" style="color: #ccc; margin-top: 10px;">관조 단계. 기억의 내부를 3인칭 시점으로 열람합니다. 데이터의 손상 없이 정보를 습득하는 안전한 표준 방식입니다.</p>
             </div>
-            <div class="dive-step">
-                <span class="step-label">PHASE 02: RESONANCE (공명)</span>
-                <p>기억 주체와 감각 및 촉각을 완벽히 공유합니다. <span class="highlight">기억의 수정, 조립, 강제 삽입</span>이 가능해지는 단계이나, 자아 오염의 위험이 매우 높습니다.</p>
+            <div class="step-box" style="border-color: var(--warning-red); background: rgba(255, 0, 60, 0.03);">
+                <span style="color: var(--warning-red); font-family: 'Orbitron'; font-weight: bold;">PHASE 02: RESONANCE</span>
+                <p class="sub-desc" style="color: #ccc; margin-top: 10px;">공명 단계. 주체의 모든 신경과 동기화됩니다. <span class="highlight">기억의 편집 및 조작</span>이 가능하지만, 딜러의 자아가 오염될 확률이 급증합니다.</p>
             </div>
-            <p class="warning">!! WARNING: RESONANCE MAY CAUSE PERMANENT EGO COLLAPSE !!</p>
         </div>
     </section>
 
-    <!-- 03. 딜러 (Dealer) -->
+    <!-- 03. 딜러 -->
     <section>
         <h2>03. MEMORY DEALERS</h2>
-        <p>다이브를 통해 기억을 유통, 수정, 가공하는 전문가들입니다.</p>
-        <div class="dealer-container">
+        <div class="dealer-grid">
             <div class="dealer-card">
-                <span class="card-title">거래소 딜러 (Licensed)</span>
-                <p class="desc">코어와 므네모시네의 승인을 받은 합법 딜러. 하이퍼 링크를 사용하며, 표준 규격 내에서만 기억을 유통합니다. 안전하지만 기업의 감시를 받습니다.</p>
+                <span class="sub-title" style="color: var(--dealer-green);">거래소 딜러 (Licensed)</span>
+                <p class="sub-desc">므네모시네의 인가를 받은 정식 기술자. 하이퍼 링크를 사용하며, 기업의 가이드라인에 따라 안전한 기억만을 유통합니다.</p>
             </div>
-            <div class="dealer-card">
-                <span class="card-title">불법 딜러 (Street Dealer)</span>
-                <p class="desc">구역 88에서 활동하는 무허가 딜러. 딥링크를 활용해 기억의 금지된 부분을 삭제하거나 여러 인생을 짜깁기해 가짜 자아를 만들어 판매합니다.</p>
+            <div class="dealer-card" style="border-left-color: var(--neon-purple); background: rgba(188, 19, 254, 0.05);">
+                <span class="sub-title" style="color: var(--neon-purple);">불법 딜러 (Street)</span>
+                <p class="sub-desc">구역 88의 무법자들. 불법적으로 거래합니다. 딥링크를 이용해 금기된 기억을 발굴하거나, 여러 명의 기억을 섞어 '가짜 인생'을 제조합니다.</p>
             </div>
         </div>
     </section>
@@ -221,48 +282,92 @@
     <!-- 04. 하드웨어 -->
     <section>
         <h2>04. HARDWARE ARCHIVE</h2>
-        <div class="grid">
-            <div class="card">
-                <div class="img-box" style="height: 180px;">
-                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000" alt="Deep Link">
-                </div>
-                <span class="card-title">딥링크 (Deep-Link)</span>
-                <p class="desc" style="font-size: 0.9rem;">수십 개의 전선이 엉킨 구식 헬멧 장치. 뇌에 심한 과부하를 주지만 기업 보안을 무식하게 뚫어내는 데 특화되어 있습니다.</p>
+        <div class="hw-grid">
+            <div class="hw-card">
+                <span class="card-label">DEVICE_01</span>
+                <span class="sub-title">딥링크 (Deep-Link)</span>
+                <p class="sub-desc">무거운 헬멧과 수많은 전선. 뇌파를 강제로 동조시켜 보안을 뚫는 불법 개조 장비입니다.</p>
             </div>
-            <div class="card">
-                <div class="img-box" style="height: 180px;">
-                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1000" alt="Hyper Link">
-                </div>
-                <span class="card-title">하이퍼 링크 (Hyper-Link)</span>
-                <p class="desc" style="font-size: 0.9rem;">목 뒤에 부착하는 최첨단 패치형 동조기. 싱크로율이 정밀하고 안전하나, 비표준 암호화된 칩 앞에서는 무용지물입니다.</p>
+            <div class="hw-card">
+                <span class="card-label">DEVICE_02</span>
+                <span class="sub-title">하이퍼 링크 (Hyper-Link)</span>
+                <p class="sub-desc">목 뒤에 부착하는 최신식 패치. 고해상도 동조율을 제공하며 상류층의 표준 장비입니다.</p>
+            </div>
+            <div class="hw-card">
+                <span class="card-label">DEVICE_03</span>
+                <span class="sub-title">센서리 풀 (Sensory Pool)</span>
+                <p class="sub-desc">다인용 기억 공유 튜브. 주로 경매장에서 거래되는 칩의 맛보기용으로 쓰입니다.</p>
             </div>
         </div>
     </section>
 
-    <!-- 05. 주요 구역 -->
+    <!-- 05. 구역 상세 -->
     <section>
-        <h2>05. KEY LOCATIONS</h2>
-        <div class="grid">
-            <div class="card">
-                <span class="card-title">구역 88</span>
-                <p class="desc" style="font-size: 0.9rem;">네온조차 닿지 않는 레테의 밑바닥. 불법 개조와 자아를 잃은 노숙자들이 즐비한 기억의 폐기장입니다.</p>
+        <h2>05. LOCATION DIRECTORY</h2>
+
+        <!-- 구역 88 -->
+        <div class="accordion">
+            <div class="acc-header" onclick="toggleAcc(this)">
+                <span>SECTOR 88</span>
+                <span style="font-size: 1rem;">[+]</span>
             </div>
-            <div class="card">
-                <span class="card-title">코어 (The Core)</span>
-                <p class="desc" style="font-size: 0.9rem;">상층부의 낙원 '에테르 가든'과 타인의 인생을 실시간 경매하는 중층부가 공존하는 탐욕의 마천루입니다.</p>
+            <div class="acc-content">
+                <div class="sub-item">
+                    <span class="sub-title">블랙 섹터 (Black Sector)</span>
+                    <p class="sub-desc">가장 진귀한 불법 칩들과 무기가 거래되는 지하 시장입니다.</p>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-title">시냅스 바 (Synapse Bar)</span>
+                    <p class="sub-desc">과거를 회상하게 하는 약물을 파는 술집. 손님들의 모든 기억은 도청되어 데이터화됩니다.</p>
+                </div>
             </div>
-            <div class="card">
-                <span class="card-title">시냅스 바 (Synapse Bar)</span>
-                <p class="desc" style="font-size: 0.9rem;">기억력 증폭 술을 파는 성역 같지만, 사실 고객의 모든 발언을 도청해 블랙 마켓으로 넘기는 정보 거점입니다.</p>
+        </div>
+
+        <!-- 코어 -->
+        <div class="accordion">
+            <div class="acc-header" onclick="toggleAcc(this)">
+                <span>THE CORE</span>
+                <span style="font-size: 1rem;">[+]</span>
+            </div>
+            <div class="acc-content">
+                <div class="sub-item">
+                    <span class="sub-title">므네모시네 (Mnemosyne HQ)</span>
+                    <p class="sub-desc">도시의 모든 기억 데이터를 독점 관리하고 통제하는 거대 기업의 본거지입니다.</p>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-title">에테르 가든 (Aether Garden)</span>
+                    <p class="sub-desc">가상의 자연 기억을 실시간으로 주입받는 상류층 전용 휴양 지구입니다.</p>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-title">데이터 경매장</span>
+                    <p class="sub-desc">누군가의 비극이나 쾌락이 상품이 되어 가장 높은 가격에 낙찰되는 탐욕의 공간입니다.</p>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-title">기억 세탁소 (Memory Laundry)</span>
+                    <p class="sub-desc">과거의 오점을 지우거나 미화된 기억으로 교체하는 코어의 은밀한 복구 센터입니다.</p>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-title">네펜데스 (Nepenthes)</span>
+                    <p class="sub-desc">완벽한 요리와 가상 식물, 꽃향기를 제공하는 코어의 최상급 비밀 라운지입니다.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <footer>
-        <p class="orbitron">SYSTEM_ID: LETHE_SERVER_088 // MEMORY_IS_POWER</p>
-        &copy; 2026 NEO-CITY LETHE. ALL RIGHTS RESERVED.
+        NO MEMORY IS REAL. ALL DATA IS TRADING. <br>
+        &copy; 2026 NEO-CITY LETHE SYSTEM ARCHIVE.
     </footer>
 </div>
+
+<script>
+    function toggleAcc(header) {
+        const item = header.parentElement;
+        item.classList.toggle('active');
+        const icon = header.querySelector('span:last-child');
+        icon.textContent = item.classList.contains('active') ? '[-]' : '[+]';
+    }
+</script>
 
 </body>
 </html>
