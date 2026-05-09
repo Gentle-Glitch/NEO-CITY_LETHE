@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WORLD SETTING: NEO-CITY LETHE</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+KR:wght@300;400;700&family=JetBrains+Mono&display=swap');
+
+        :root {
+            --bg-dark: #020203;
+            --neon-blue: #00f3ff;
+            --neon-purple: #bc13fe;
+            --warning-red: #ff003c;
+            --m-chip-gold: #ffd700;
+            --text-gray: #a0a0a0;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #e0e0e0;
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* 글리치 효과 배경 */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            background-size: 100% 2px, 2px 100%;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 1px solid var(--neon-blue);
+            padding-bottom: 40px;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            letter-spacing: 10px;
+            color: #fff;
+            text-shadow: 0 0 20px var(--neon-blue);
+            margin: 0;
+        }
+
+        .system-status {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--neon-blue);
+            margin-top: 15px;
+        }
+
+        /* 섹션 스타일 */
+        section {
+            margin-bottom: 80px;
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            border-left: 4px solid var(--neon-purple);
+            padding-left: 15px;
+            margin-bottom: 30px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+        }
+
+        .grid-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            border-color: var(--neon-blue);
+            background: rgba(0, 243, 255, 0.05);
+        }
+
+        .card-title {
+            font-weight: bold;
+            color: var(--neon-blue);
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* 다이브 단계/장치 특화 스타일 */
+        .step-container {
+            background: rgba(188, 19, 254, 0.05);
+            padding: 20px;
+            border-radius: 8px;
+            border-right: 4px solid var(--neon-purple);
+        }
+
+        .warning-text {
+            color: var(--warning-red);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        .m-chip-info {
+            border: 1px solid var(--m-chip-gold);
+            padding: 20px;
+            text-align: center;
+            background: rgba(255, 215, 0, 0.05);
+            color: var(--m-chip-gold);
+            font-family: 'Orbitron', sans-serif;
+            margin-top: 20px;
+        }
+
+        /* 시냅스 바 스페셜 박스 */
+        .analog-sanctuary {
+            background: linear-gradient(45deg, #1a1a1a, #2c1a1a);
+            padding: 30px;
+            border: 1px solid #5e3a3a;
+            font-style: italic;
+        }
+
+        ul {
+            padding-left: 20px;
+            color: var(--text-gray);
+        }
+
+        li { margin-bottom: 10px; }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #333;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            margin-right: 5px;
+            color: var(--neon-blue);
+        }
+
+        footer {
+            text-align: center;
+            padding-top: 50px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--polluted-gray);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-box { grid-template-columns: 1fr; }
+            h1 { font-size: 2rem; letter-spacing: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="system-status">NEURAL LINK CONNECTED... VERSION 4.04</div>
+        <h1>LETHE</h1>
+        <p style="letter-spacing: 3px; color: var(--text-gray);">THE CITY OF TRANSIENT MEMORIES</p>
+    </header>
+
+    <section id="concept">
+        <h2>01. CORE CONCEPT</h2>
+        <p>영혼이라 믿었던 기억마저 물리적 매체인 <span style="color: var(--m-chip-gold);">[M-칩]</span>에 담겨 거래되는 세상. 뉴럴 링크를 통해 타인의 감각(냄새, 촉감, 온도)을 장면 단위로 구매하고 소비합니다.</p>
+        <div class="grid-box">
+            <div class="card">
+                <span class="card-title">기억의 휘발성</span>
+                가난한 자는 끼니를 위해 어린 시절의 행복을 팔고, 부유한 자는 자극적인 경험을 사들여 일상의 공허를 채웁니다.
+            </div>
+            <div class="card">
+                <span class="card-title">기억 침식 (Corruption)</span>
+                타인의 자아와 본래의 자아가 충돌하여 인격이 붕괴되는 부작용. 당신이 보는 환각은 누구의 기억입니까?
+                <div class="warning-text">!! ALERT: EGO DISRUPTION DETECTED !!</div>
+            </div>
+        </div>
+        <div class="m-chip-info">
+            M-CHIP: INDESTRUCTIBLE. ONCE EXTRACTED, MEMORY IS LOST FOREVER.
+        </div>
+    </section>
+
+    <section id="dive-process">
+        <h2>02. DIVE PROCEDURE</h2>
+        <div class="step-container">
+            <p><span class="tag">Step 1</span> <strong>관조 (Observing)</strong>: 기억의 표면을 영화처럼 시청. 정보 습득만 가능.</p>
+            <p><span class="tag">Step 2</span> <strong>공명 (Resonance)</strong>: 주체의 감정과 촉각을 공유. 숨겨진 정보 습득 및 수정 가능.</p>
+            <p class="warning-text">* 공명 단계 이후부터는 기억의 수정, 추출, 삽입이 가능하나 자아 오염의 위험이 큽니다.</p>
+        </div>
+    </section>
+
+    <section id="hardware">
+        <h2>03. HARDWARE & DEVICES</h2>
+        <div class="grid-box">
+            <div class="card">
+                <span class="card-title">딥링크 (Deep-Link)</span>
+                수십 개의 전선과 아날로그 다이얼. 무겁고 위험하지만 기업의 강력한 보안을 무식하게 뚫어버리는 구식 장비.
+            </div>
+            <div class="card">
+                <span class="card-title">하이퍼 링크 (Hyper-Link)</span>
+                기업 엘리트용 패치형 장치. 안전하고 싱크로율이 높으나 표준 규격을 벗어난 암호 앞에서는 무력함.
+            </div>
+            <div class="card">
+                <span class="card-title">센서리 풀 (Sensory Pool)</span>
+                경매장 전용. 액체 속에 금빛 신경망처럼 퍼지는 기억 데이터. 구경꾼들은 10%의 감각을 공유하며 배팅합니다.
+            </div>
+            <div class="card">
+                <span class="card-title">메모리 디스플레이어</span>
+                가정용 기억 재생기. 뇌파 동기화 75% 지원. 당신의 침실에서 타인의 연애를 감상하십시오.
+            </div>
+        </div>
+    </section>
+
+    <section id="locations">
+        <h2>04. KEY LOCATIONS</h2>
+        <ul>
+            <li><strong>구역 88 (Sector 88)</strong>: 네온조차 닿지 않는 폐기물 처리 구역. 불법 개조 딜러와 자아를 잃은 노숙자들의 요람.</li>
+            <li><strong>코어 (The Core)</strong>: 에테르 가든의 평화로운 홀로그램과 데이터 경매장의 피 튀기는 배팅이 공존하는 마천루.</li>
+            <li><strong>므네모시네 (Mnemosyne)</strong>: 기억 거래를 독점하는 초거대 기업. 블랙 서버에 국가의 치부를 봉인한 신적 존재.</li>
+            <li><strong>기억 세탁소</strong>: 고위층의 추악한 과거를 미화하는 코어의 비밀 센터. 딥링크만이 그 흔적을 찾아낼 수 있습니다.</li>
+        </ul>
+    </section>
+
+    <section id="synapse-bar">
+        <h2>05. SPECIAL SECTOR: SYNAPSE BAR</h2>
+        <div class="analog-sanctuary">
+            "칩 없이 생생한 육성으로 행복을 이야기하는 마지막 아날로그 성역."
+            <p style="font-size: 0.9rem; color: #ccc; margin-top: 15px;">
+                하지만 주의하십시오. 이곳의 술에는 기억력을 극대화하는 약물이 들어있습니다. 
+                당신이 향수에 젖어 내뱉는 말 한마디는 실시간으로 도청되어 블랙 마켓의 정보가 됩니다.
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2026 NEO-CITY LETHE. MEMORY IS THE NEW CURRENCY.
+    </footer>
+</div>
+
+</body>
+</html>
